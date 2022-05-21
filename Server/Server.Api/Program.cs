@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Server.Api.Services;
 using Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"
 if (connectionString != null)
     builder.Services.AddDbContext<StreamingContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services.AddSingleton<IPayoutCalculator, PayoutCalculator>();
+builder.Services.AddSingleton<IArtistMapper, ArtistMapper>();
 
 // Configure the HTTP request pipeline
 
